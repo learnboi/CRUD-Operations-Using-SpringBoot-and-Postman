@@ -2,21 +2,17 @@ package com.example.demoSpringWeb.Controller;
 
 import com.example.demoSpringWeb.Model.Product;
 import com.example.demoSpringWeb.Service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
 public class ProductController {
 
-    final
+    @Autowired
     ProductService productService;
-    final
+    @Autowired
     Product product;
-
-    public ProductController(ProductService productService, Product product) {
-        this.productService = productService;
-        this.product = product;
-    }
 
     @GetMapping("/get-product/{id}")
     public Product getProductById(@PathVariable int id) {
