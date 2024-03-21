@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.demoSpringWeb.Model.Product;
 
+import java.util.HashMap;
 import java.util.List;
 @RestController
 public class ProductController {
@@ -14,9 +15,9 @@ public class ProductController {
     @Autowired
     Product product;
 
-    @GetMapping("/get-product")
-    public Product getProduct() {
-        return productService.getProduct(1);
+    @GetMapping("/get-product/{id}")
+    public Product getProductById(@PathVariable int id) {
+        return productService.getProductById(id);
     }
 
     @GetMapping("/get-products")
@@ -25,25 +26,18 @@ public class ProductController {
     }
 
     @PostMapping("/create-product")
-    public Product createproduct(){
-        product.setId(1);
-        product.setName("Mobile");
-        product.setType("Smartphone");
-        product.setCost(76000);
-        return productService.createProduct(product);
+    public String createproduct(@RequestBody Product newProduct){
+        return productService.createProduct(newProduct);
     }
 
-    @PutMapping("/update-product")
-    public Product updateProduct(){
-        product.setName("Mobile1");
-        product.setType("Smartphone1");
-        product.setCost(77000);
-        return productService.updateProduct(1,product);
+    @PutMapping("/update-product/{id}")
+    public String updateProduct(@PathVariable int id,@RequestBody Product updateProduct){
+        return productService.updateProduct(id,updateProduct);
     }
 
-    @DeleteMapping("/delete-product")
-    public boolean deleteProduct(){
-        return productService.deleteProduct(1);
+    @DeleteMapping("/delete-product/{id}")
+    public String deleteProduct(@PathVariable int id){
+        return productService.deleteProduct(id);
     }
 
 }
